@@ -2,22 +2,12 @@
 import { useState } from "react";
 
 interface FloatingInputProps {
-    id: string;
-    label: string;
-    type?: string;
-    value: string;
+    id: string; label: string; type?: string; value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
 }
 
-export function FloatingInput({
-    id,
-    label,
-    type = "text",
-    value,
-    onChange,
-    required = false,
-}: FloatingInputProps) {
+export function FloatingInput({ id, label, type = "text", value, onChange, required = false, }: FloatingInputProps) {
     const [isFocused, setIsFocused] = useState(false);
     const isActive = isFocused || value.length > 0;
 
