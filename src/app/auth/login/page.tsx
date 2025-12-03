@@ -26,11 +26,11 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        
+
         <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-lg border border-slate-100 p-6">
           {/* Header */}
           <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold text-slate-900 mb-1">Logo</h1>
+            <h1 className="text-5xl font-bold text-slate-900 mb-5">Logo</h1>
             <p className="text-sm text-slate-500">Welcome back to your account</p>
           </div>
 
