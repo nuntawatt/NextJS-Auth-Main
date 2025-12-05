@@ -10,7 +10,9 @@ npm install
 
 ```bash
 npm run dev
+
 # or
+
 yarn dev
 
 ```
@@ -18,6 +20,7 @@ yarn dev
 ## Setup env and env.local
 ```bash
 # .env
+
 DATABASE_URL="postgresql://postgres:<password>@localhost:<port>/<db>?schema=public"
 ```
 
