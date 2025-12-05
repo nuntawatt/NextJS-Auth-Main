@@ -13,11 +13,7 @@ export function FloatingInput({ id, label, type = "text", value, onChange, requi
 
     return (
         <div className="relative">
-            <input
-                id={id}
-                type={type}
-                value={value}
-                onChange={onChange}
+            <input id={id} type={type} value={value} onChange={onChange}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 required={required}
@@ -27,14 +23,12 @@ export function FloatingInput({ id, label, type = "text", value, onChange, requi
                     : "border-slate-200 hover:border-slate-300"
                     }`}
             />
-            <label
-                htmlFor={id}
+            <label htmlFor={id}
                 className={`absolute left-2 px-1 bg-white transition-all duration-200 pointer-events-none ${isActive
                     ? "-top-2.5 text-xs font-medium text-[#1e3a5f]"
                     : "top-1/2 -translate-y-1/2 text-sm text-slate-400"
                     }`}
-            >
-                {label}
+            >   {label}
             </label>
         </div>
     );
