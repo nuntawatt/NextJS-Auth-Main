@@ -1,4 +1,4 @@
-# Authentication - connected to backend Test
+# Authentication - Connected to backend test
 
 ## Getting Started
 
