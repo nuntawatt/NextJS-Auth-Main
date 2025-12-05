@@ -14,14 +14,7 @@ export default function ForgotPasswordPage() {
     if (!email) return setStatus({ type: "error", message: "Please enter your email." });
 
     try {
-      console.log("forgot-password submit:", email);
-      const key = "forgotPasswordEmails";
-      const prev = typeof window !== "undefined" ? localStorage.getItem(key) : null;
-      const list = prev ? JSON.parse(prev) as Array<{ email: string; ts: string }> : [];
-      list.push({ email, ts: new Date().toISOString() });
-      localStorage.setItem(key, JSON.stringify(list));
     } catch (err) {
-      console.warn("Could not save forgot-password email log", err);
     }
     setLoading(true);
     try {

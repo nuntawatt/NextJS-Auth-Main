@@ -3,16 +3,37 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FloatingInput, PasswordInput, GoogleIcon } from "@/components/ui";
+import { signIn } from "next-auth/react";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup attempt with:", { name, email, password });
+    setError(null);
+    if (password !== confirmPassword) return setError("Passwords do not match");
+    setLoading(true);
+    fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Signup failed");
+        setSuccess(true);
+      })
+      .catch((err: unknown) => {
+        const msg = err instanceof Error ? err.message : String(err);
+        setError(String(msg));
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -43,15 +64,10 @@ export default function SignupPage() {
             <PasswordInput id="password" label="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             <PasswordInput id="confirmPassword" label="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
-            {/* <div className="flex items-start gap-2 pt-1">
-              <input id="terms" type="checkbox" className="mt-0.5 h-4 w-4 text-[#1e3a5f] border-slate-300 rounded" required />
-              <label htmlFor="terms" className="text-xs text-slate-600">
-                By signing up, you agree to our <Link href="/terms" className="text-[#1e3a5f] hover:underline">Terms</Link> and <Link href="#" className="text-[#1e3a5f] hover:underline">Privacy Policy</Link>
-              </label>
-            </div> */}
-
-            <button type="submit" className="w-full py-2.5 rounded-lg text-white font-semibold bg-[#1e3a5f] hover:bg-[#152c4a] transition-all shadow-md text-sm mt-6">
-              Create Account
+            {error && <p className="text-xs text-red-600">{error}</p>}
+            {success && <p className="text-xs text-green-700">Account created — you can sign in.</p>}
+            <button disabled={loading} type="submit" className="w-full py-2.5 rounded-lg text-white font-semibold bg-[#1e3a5f] hover:bg-[#152c4a] transition-all shadow-md text-sm mt-6 disabled:opacity-60">
+              {loading ? "Creating..." : "Create Account"}
             </button>
           </form>
 
@@ -62,8 +78,20 @@ export default function SignupPage() {
           </div>
 
           {/* Google */}
-          <button type="button" className="w-full flex items-center justify-center gap-2 py-2.5 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium text-slate-700 mt-5">
-            <GoogleIcon /> Continue with Google
+          <button
+            type="button"
+            disabled={googleLoading}
+            onClick={async () => {
+              setGoogleLoading(true);
+              try {
+                await signIn('google');
+              } finally {
+                setGoogleLoading(false);
+              }
+            }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium text-slate-700 mt-5 disabled:opacity-60"
+          >
+            <GoogleIcon /> {googleLoading ? 'Opening...' : 'Continue with Google'}
           </button>
 
           {/* Footer */}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FloatingInput, PasswordInput, GoogleIcon } from "@/components/ui";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,6 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt with:", { email, password });
   };
 
   return (
@@ -59,7 +59,11 @@ export default function LoginPage() {
           </div>
 
           {/* Google */}
-          <button type="button" className="w-full flex items-center justify-center gap-2 py-2.5 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium text-slate-700">
+          <button
+            type="button"
+            onClick={() => signIn('google')}
+            className="w-full flex items-center justify-center gap-2 py-2.5 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium text-slate-700"
+          >
             <GoogleIcon /> Continue with Google
           </button>
 
