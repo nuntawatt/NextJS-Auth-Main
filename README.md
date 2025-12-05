@@ -42,17 +42,18 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 Open 
 [console.cloud.google.com](https://console.cloud.google.com/)
 ```bash
-# 1. Go to APIs & Services -> OAuth consent screen 
 
-# 2. Setting External 
+1. Go to APIs & Services -> OAuth consent screen 
 
-# 3. Go to Create Creadentials -> OAuth Client ID
+2. Setting External 
+
+3. Go to Create Creadentials -> OAuth Client ID
 - Application type: Web application
 - Authorized JavaScript origins 
 http://localhost:3000 
 https://your-app.vercel.app เมื่อขึ้น Vercel
 
-# Authorized redirect URIs
+4. Authorized redirect URIs
 http://localhost:3000/api/auth/callback/google
 https://your-app.vercel.app/api/auth/callback/google เมื่อขึ้น Vercel
 ```
