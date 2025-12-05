@@ -1,4 +1,4 @@
-# Authentication - But Not connected to the backend
+# Authentication - connected to backend Test
 
 ## Getting Started
 
@@ -31,7 +31,7 @@ GOOGLE_CLIENT_SECRET=Key
 ```
 
 ```bash
-# NEXTAUTH_SECRET
+# NEXTAUTH_SECRET Key
 
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
